@@ -403,4 +403,8 @@ CALL AnonymizeSurgicalAppointmentAttribute('Circulating Nurse','java.lang.String
 CALL AnonymizeSurgicalAppointmentAttribute('Notes','java.lang.String','notes');
 
 
-
+-- ++++++++++++++++++++++++++++++++++++++++++++
+-- ++++++++++++++++++++++++++++++++++++++++++++
+-- // End of Anonymization Script            //
+-- ++++++++++++++++++++++++++++++++++++++++++++
+-- ++++++++++++++++++++++++++++++++++++++++++++
