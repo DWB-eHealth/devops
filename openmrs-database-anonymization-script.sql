@@ -35,7 +35,7 @@ WHERE
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
--- // MODULE: REGISTRATION
+-- // MODULE: BAHMNI REGISTRATION
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 -- ---------------------------------------------------------------------
@@ -240,3 +240,47 @@ CALL AnonymizePersonAttribute('Urban','java.lang.Boolean','isUrban');
 CALL AnonymizePersonAttribute('cluster','org.openmrs.Concept','cluster');
 CALL AnonymizePersonAttribute('Ration Card Type','org.openmrs.Concept','RationCard');
 CALL AnonymizePersonAttribute('Family Income (per month in Rs)','org.openmrs.Concept','familyIncome')
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- // MODULE: BAHMNI CLINICAL
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: obs
+-- columns: value_text, comments
+-- strategy: replace comments and values with concept datatype "text"
+-- ---------------------------------------------------------------------
+UPDATE
+   obs
+SET
+   value_text = concat( 'Observation Comment - ', lipsum(2,5, RAND()) )
+WHERE
+   concept_id IN
+   (
+      SELECT
+         concept_id
+      FROM
+         concept
+      WHERE
+         datatype_id = 3
+   )
+;
+UPDATE
+   obs
+SET
+   comments = lipsum(3,8, RAND())
+WHERE
+   comments is not null;
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: orders
+-- columns: additional_detail
+-- strategy: replace details with Lorem Ipsum and prefix
+-- ---------------------------------------------------------------------
+UPDATE
+   conditions
+SET
+   additional_detail = concat( 'Conditions Additional Detail - ', lipsum(2,5, RAND()) )
