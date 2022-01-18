@@ -312,3 +312,42 @@ UPDATE
    orders
 SET
    dosing_instructions = concat( 'Dosing Instructions - ', lipsum(2,5, RAND()) )
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- // MODULE: BAHMNI APPOINTMENT
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: patient_appointment
+-- columns: comments
+-- strategy: text value is replaced with Lorem Ipsum text 
+--           containing 1-5 words and optional prefix 
+-- ---------------------------------------------------------------------
+UPDATE
+   patient_appointment
+SET
+   -- lipsum(min words, max words, ipsum start)
+   comments = lipsum(3,8, RAND())
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: patient_appointment_audit
+-- columns: all
+-- strategy: truncate audit table
+-- ---------------------------------------------------------------------
+TRUNCATE TABLE patient_appointment_audit 
+
+-- ------------------------------------------------------------------
+-- database: openmrs
+-- table: provider 
+-- columns: name, identifier
+-- strategy: replace names with Lorem Ipsum and prefix 
+--           and new identifier
+-- ------------------------------------------------------------------
+UPDATE
+   provider 
+SET
+   name = concat( 'ProviderName-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
+   identifier = concat( 'ProviderIdentifier-', idgen())
