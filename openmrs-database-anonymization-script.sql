@@ -35,6 +35,18 @@ WHERE
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- // MODULE: BAHMNI AUDIT LOGS
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: audit_log
+-- strategy: truncate audit log table
+-- ---------------------------------------------------------------------
+TRUNCATE TABLE audit_log 
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 -- // MODULE: BAHMNI REGISTRATION
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -351,3 +363,44 @@ UPDATE
 SET
    name = concat( 'ProviderName-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
    identifier = concat( 'ProviderIdentifier-', idgen())
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- // MODULE: BAHMNI OPERATION THEATER
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ------------------------------------------------------------------
+-- database: openmrs
+-- table: surgical_appointment_attribute 
+-- column: value
+-- strategy: replace value with attribute prefix and random ID
+-- ------------------------------------------------------------------
+DROP PROCEDURE if exists AnonymizeSurgicalAppointmentAttribute
+DELIMITER //
+CREATE PROCEDURE AnonymizeSurgicalAppointmentAttribute(IN surgical_appointment_attribute VARCHAR(255), IN attribute_format VARCHAR(255), IN randomization_prefix VARCHAR(50))
+BEGIN
+SET @attribute = CONCAT('%',surgical_appointment_attribute,'%');
+	 UPDATE
+    surgical_appointment_attribute saa
+    INNER JOIN
+       surgical_appointment_attribute_type saat
+       ON saa.surgical_appointment_attribute_type_id = saat.surgical_appointment_attribute_type_id 
+       AND saat.name LIKE @attribute
+       AND saat.format = attribute_format
+  SET
+      saa.value = concat(randomization_prefix, idgen());
+END //
+
+DELIMITER ;
+
+-- AnonymizeSurgicalAppointmentAttribute(Surgical appointment attribute name, attribute format, randomization prefix)
+CALL AnonymizeSurgicalAppointmentAttribute('Procedure','java.lang.String','procedure');
+CALL AnonymizeSurgicalAppointmentAttribute('Other Surgeon','org.openmrs.Provider','otherSurgeon');
+CALL AnonymizeSurgicalAppointmentAttribute('Surgical Assistant','java.lang.String','surgicalAssistant');
+CALL AnonymizeSurgicalAppointmentAttribute('Anaesthetist','java.lang.String','anaesthetist');
+CALL AnonymizeSurgicalAppointmentAttribute('Scrub Nurse','java.lang.String','scrubNurse');
+CALL AnonymizeSurgicalAppointmentAttribute('Circulating Nurse','java.lang.String','circulatingNurse');
+CALL AnonymizeSurgicalAppointmentAttribute('Notes','java.lang.String','notes');
+
+
+
