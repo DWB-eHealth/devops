@@ -284,3 +284,31 @@ UPDATE
    conditions
 SET
    additional_detail = concat( 'Conditions Additional Detail - ', lipsum(2,5, RAND()) )
+
+
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- // MODULE: BAHMNI MEDICATIONS
+-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: orders
+-- columns: comment_to_fulfiller, order_reason_non_coded
+-- strategy: replace text with Lorem Ipsum and prefix
+-- ---------------------------------------------------------------------
+UPDATE
+   orders
+SET
+   comment_to_fulfiller = concat( 'Order Comment - ', lipsum(2,5, RAND()) )
+   order_reason_non_coded = concat( 'Order Reason Non-coded - ', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) )
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: drug_order
+-- columns: dosing_instructions
+-- strategy: replace text with Lorem Ipsum and prefix
+-- ---------------------------------------------------------------------
+UPDATE
+   orders
+SET
+   dosing_instructions = concat( 'Dosing Instructions - ', lipsum(2,5, RAND()) )
