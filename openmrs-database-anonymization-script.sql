@@ -43,7 +43,7 @@ WHERE
 -- table: audit_log
 -- strategy: truncate audit log table
 -- ---------------------------------------------------------------------
-TRUNCATE TABLE audit_log 
+TRUNCATE TABLE audit_log;
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -104,7 +104,7 @@ SET
    given_name = concat( 'AnonFN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
    middle_name = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
    family_name = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   family_name2 = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) )
+   family_name2 = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) );
 
 
 -- ---------------------------------------------------------------------
@@ -116,11 +116,7 @@ SET
 UPDATE
    person
 SET
-   gender =
-   case
-   when gender = 'F' then 'M'
-   when gender = 'M' then 'F'
-   end;
+   gender = 'F';
 
 -- ---------------------------------------------------------------------
 -- database: openmrs
@@ -295,7 +291,7 @@ WHERE
 UPDATE
    conditions
 SET
-   additional_detail = concat( 'Conditions Additional Detail - ', lipsum(2,5, RAND()) )
+   additional_detail = concat( 'Conditions Additional Detail - ', lipsum(2,5, RAND()) );
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -312,7 +308,7 @@ UPDATE
    orders
 SET
    comment_to_fulfiller = concat( 'Order Comment - ', lipsum(2,5, RAND()) )
-   order_reason_non_coded = concat( 'Order Reason Non-coded - ', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) )
+   order_reason_non_coded = concat( 'Order Reason Non-coded - ', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) );
 
 -- ---------------------------------------------------------------------
 -- database: openmrs
@@ -323,7 +319,7 @@ SET
 UPDATE
    orders
 SET
-   dosing_instructions = concat( 'Dosing Instructions - ', lipsum(2,5, RAND()) )
+   dosing_instructions = concat( 'Dosing Instructions - ', lipsum(2,5, RAND()) );
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -341,7 +337,7 @@ UPDATE
    patient_appointment
 SET
    -- lipsum(min words, max words, ipsum start)
-   comments = lipsum(3,8, RAND())
+   comments = lipsum(3,8, RAND());
 
 -- ---------------------------------------------------------------------
 -- database: openmrs
@@ -349,7 +345,7 @@ SET
 -- columns: all
 -- strategy: truncate audit table
 -- ---------------------------------------------------------------------
-TRUNCATE TABLE patient_appointment_audit 
+TRUNCATE TABLE patient_appointment_audit;
 
 -- ---------------------------------------------------------------------
 -- database: openmrs
@@ -362,7 +358,7 @@ UPDATE
    provider 
 SET
    name = concat( 'ProviderName-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   identifier = concat( 'ProviderIdentifier-', idgen())
+   identifier = concat( 'ProviderIdentifier-', idgen());
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
