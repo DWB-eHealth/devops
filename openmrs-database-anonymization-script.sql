@@ -101,10 +101,10 @@ DROP TABLE temp_patient_identifier_old;
 UPDATE
    person_name
 SET
-   given_name = concat( 'AnonFN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   middle_name = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   family_name = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   family_name2 = concat( 'AnonLN-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) );
+   given_name = concat( 'AnonFirstName', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
+   middle_name = concat( 'AnonMiddleName', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
+   family_name = concat( 'AnonFamilyName', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
+   family_name2 = concat( 'AnonFamilyName2', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) );
 
 
 -- ---------------------------------------------------------------------
@@ -179,25 +179,25 @@ WHERE
 UPDATE
    person_address
 SET
-   address1 = concat('anon-address1-', person_id),
-   address2 = concat('anon-address2-', person_id),
-   address3 = concat('anon-address3-', person_id),
-   address4 = concat('anon-address4-', person_id),
-   address5 = concat('anon-address5-', person_id),
-   address6 = concat('anon-address6-', person_id),
-   address7 = concat('anon-address7-', person_id),
-   address8 = concat('anon-address8-', person_id),
-   address9 = concat('anon-address9-', person_id),
-   address10 = concat('anon-address10-', person_id),
-   address11 = concat('anon-address11-', person_id),
-   address12 = concat('anon-address12-', person_id),
-   address13 = concat('anon-address13-', person_id),
-   address14 = concat('anon-address14-', person_id),
-   county_district = concat('anon-countyDistrict', person_id),
-   city_village = concat('anon-cityVillage', person_id),
-   country = concat('anon-country', person_id),
-   state_province = null,
-   postal_code = null,
+   address1 = concat('AnonAddress1'),
+   address2 = concat('AnonAddress2'),
+   address3 = concat('AnonAddress3'),
+   address4 = concat('AnonAddress4'),
+   address5 = concat('AnonAddress5'),
+   address6 = concat('AnonAddress6'),
+   address7 = concat('AnonAddress7'),
+   address8 = concat('AnonAddress8'),
+   address9 = concat('AnonAddress9'),
+   address10 = concat('AnonAddress10'),
+   address11 = concat('AnonAddress11'),
+   address12 = concat('AnonAddress12'),
+   address13 = concat('AnonAddress13'),
+   address14 = concat('AnonAddress14'),
+   county_district = concat('AnonCountyDistrict'),
+   city_village = concat('AnonCityVillage'),
+   country = concat('AnonCountry'),
+   state_province = concat('AnonProvince'),
+   postal_code = concat('AnonPostalCode'),
    latitude = null,
    longitude = null,
    date_created = now(),
@@ -357,8 +357,8 @@ TRUNCATE TABLE patient_appointment_audit;
 UPDATE
    provider 
 SET
-   name = concat( 'ProviderName-', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
-   identifier = concat( 'ProviderIdentifier-', idgen());
+   name = concat( 'ProviderName', lipsum(1,1,FLOOR( 1 + RAND( ) *9 )) ),
+   identifier = concat( 'ProviderIdentifier', idgen());
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
