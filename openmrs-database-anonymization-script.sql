@@ -13,7 +13,7 @@
 -- database: openmrs
 -- table: concept_proposal_tag_map, concept_proposal, hl7_in_archive,
 --        hl7_in_error, hl7_in_queue, notification_alert_recipient,
---        notification_alert
+--        notification_alert, failed_events
 -- strategy: truncate unnecessary tables 
 -- ---------------------------------------------------------------------
 SET
@@ -25,6 +25,7 @@ TRUNCATE TABLE hl7_in_error;
 TRUNCATE TABLE hl7_in_queue;
 TRUNCATE TABLE notification_alert_recipient;
 TRUNCATE TABLE notification_alert;
+TRUNCATE failed_events;
 SET
    FOREIGN_KEY_CHECKS = 1;
 
@@ -50,6 +51,34 @@ WHERE
       'superman',
       'reports-user',
       'superman'
+   )
+;
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: global_property
+-- columns: property_value
+-- strategy: removing the username/password stored in global properties
+-- ---------------------------------------------------------------------
+UPDATE
+   global_property
+SET
+   property_value = 'admin'
+WHERE
+   property like '%.username';
+UPDATE
+   global_property
+SET
+   property_value = 'test'
+WHERE
+   property like '%.password';
+DELETE
+FROM
+   user_property
+WHERE
+   property NOT IN
+   (
+      'favouriteObsTemplates'
    )
 ;
 
