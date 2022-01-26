@@ -6,8 +6,28 @@
 
 
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
--- // MODULE: OPENMRS USERS
+-- // MODULE: OPENMRS
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+-- ---------------------------------------------------------------------
+-- database: openmrs
+-- table: concept_proposal_tag_map, concept_proposal, hl7_in_archive,
+--        hl7_in_error, hl7_in_queue, notification_alert_recipient,
+--        notification_alert
+-- strategy: truncate unnecessary tables 
+-- ---------------------------------------------------------------------
+SET
+   FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE concept_proposal_tag_map;
+TRUNCATE TABLE concept_proposal;
+TRUNCATE TABLE hl7_in_archive;
+TRUNCATE TABLE hl7_in_error;
+TRUNCATE TABLE hl7_in_queue;
+TRUNCATE TABLE notification_alert_recipient;
+TRUNCATE TABLE notification_alert;
+SET
+   FOREIGN_KEY_CHECKS = 1;
+
 
 -- ---------------------------------------------------------------------
 -- database: openmrs
